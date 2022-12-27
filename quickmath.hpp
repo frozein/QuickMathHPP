@@ -35,26 +35,26 @@
  * QMmatn       QM_transpose                  (QMmatn m);
  * QMmatn       QM_inverse                    (QMmatn m);
  * 
- * QMmat3       QM_mat3_translate             (QMvec2 t);
- * QMmat4       QM_mat4_translate             (QMvec3 t);
- * QMmat3       QM_mat3_scale                 (QMvec2 s);
- * QMmat4       QM_mat4_scale                 (QMvec3 s);
- * QMmat3       QM_mat3_rotate                (float angle);
- * QMmat4       QM_mat4_rotate                (QMvec3 axis, float angle);
- * QMmat4       QM_mat4_rotate_euler          (QMvec3 angles);
- * QMmat3       QM_mat4_top_left              (QMmat4 m);
+ * QMmat3       QM_translate                  (QMvec2 t);
+ * QMmat4       QM_translate                  (QMvec3 t);
+ * QMmat3       QM_scale                      (QMvec2 s);
+ * QMmat4       QM_scale                      (QMvec3 s);
+ * QMmat3       QM_rotate                     (float angle);
+ * QMmat4       QM_rotate                     (QMvec3 axis, float angle);
+ * QMmat4       QM_rotate                     (QMvec3 euler);
+ * QMmat3       QM_top_left                   (QMmat4 m);
  *
- * QMmat4       QM_mat4_perspective           (float fov, float aspect, float near, float far);
- * QMmat4       QM_mat4_orthographic          (float left, float right, float bot, float top, float near, float far);
- * QMmat4       QM_mat4_look                  (QMvec3 pos, QMvec3 dir   , QMvec3 up);
- * QMmat4       QM_mat4_lookat                (QMvec3 pos, QMvec3 target, QMvec3 up);
+ * QMmat4       QM_perspective                (float fov, float aspect, float near, float far);
+ * QMmat4       QM_orthographic               (float left, float right, float bot, float top, float near, float far);
+ * QMmat4       QM_look                       (QMvec3 pos, QMvec3 dir   , QMvec3 up);
+ * QMmat4       QM_lookat                     (QMvec3 pos, QMvec3 target, QMvec3 up);
  * 
  * QMquaternion QM_quaternion_identity        ();
  * QMquaternion QM_dot                        (QMquaternion q1, QMquaternion q2);
  * float        QM_length                     (QMquaternion q);
  * QMquaternion QM_normalize                  (QMquaternion q);
  * QMquaternion QM_conjugate                  (QMquaternion q);
- * QMquaternion QM_quaternion_inverse         (QMquaternion q);
+ * QMquaternion QM_inverse                    (QMquaternion q);
  * QMquaternion QM_slerp                      (QMquaternion q1, QMquaternion q2, float a);
  * QMquaternion QM_quaternion_from_axis_angle (QMvec3 axis, float angle);
  * QMquaternion QM_quaternion_from_euler      (QMvec3 angles);
@@ -1321,7 +1321,7 @@ QM_INLINE QMmat4 QM_PREFIX(inverse)(const QMmat4& mat)
 
 //translation:
 
-QM_INLINE QMmat3 QM_PREFIX(mat3_translate)(const QMvec2& t)
+QM_INLINE QMmat3 QM_PREFIX(translate)(const QMvec2& t)
 {
 	QMmat3 result = QM_PREFIX(mat3_identity)();
 
@@ -1331,7 +1331,7 @@ QM_INLINE QMmat3 QM_PREFIX(mat3_translate)(const QMvec2& t)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_translate)(const QMvec3& t)
+QM_INLINE QMmat4 QM_PREFIX(translate)(const QMvec3& t)
 {
 	QMmat4 result = QM_PREFIX(mat4_identity)();
 
@@ -1344,7 +1344,7 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_translate)(const QMvec3& t)
 
 //scaling:
 
-QM_INLINE QMmat3 QM_PREFIX(mat3_scale)(const QMvec2& s)
+QM_INLINE QMmat3 QM_PREFIX(scale)(const QMvec2& s)
 {
 	QMmat3 result = QM_PREFIX(mat3_identity)();
 
@@ -1354,7 +1354,7 @@ QM_INLINE QMmat3 QM_PREFIX(mat3_scale)(const QMvec2& s)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_scale)(const QMvec3& s)
+QM_INLINE QMmat4 QM_PREFIX(scale)(const QMvec3& s)
 {
 	QMmat4 result = QM_PREFIX(mat4_identity)();
 
@@ -1367,7 +1367,7 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_scale)(const QMvec3& s)
 
 //rotation:
 
-QM_INLINE QMmat3 QM_PREFIX(mat3_rotate)(float angle)
+QM_INLINE QMmat3 QM_PREFIX(rotate)(float angle)
 {
 	QMmat3 result = QM_PREFIX(mat3_identity)();
 
@@ -1383,7 +1383,7 @@ QM_INLINE QMmat3 QM_PREFIX(mat3_rotate)(float angle)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_rotate)(const QMvec3& axis, float angle)
+QM_INLINE QMmat4 QM_PREFIX(rotate)(const QMvec3& axis, float angle)
 {
 	QMmat4 result = QM_PREFIX(mat4_identity)();
 
@@ -1407,14 +1407,14 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_rotate)(const QMvec3& axis, float angle)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_rotate_euler)(const QMvec3& angles)
+QM_INLINE QMmat4 QM_PREFIX(rotate)(const QMvec3& euler)
 {
 	QMmat4 result = QM_PREFIX(mat4_identity)();
 
 	QMvec3 radians;
-	radians.x = QM_PREFIX(deg_to_rad)(angles.x);
-	radians.y = QM_PREFIX(deg_to_rad)(angles.y);
-	radians.z = QM_PREFIX(deg_to_rad)(angles.z);
+	radians.x = QM_PREFIX(deg_to_rad)(euler.x);
+	radians.y = QM_PREFIX(deg_to_rad)(euler.y);
+	radians.z = QM_PREFIX(deg_to_rad)(euler.z);
 
 	float sinX = QM_SINF(radians.x);
 	float cosX = QM_COSF(radians.x);
@@ -1438,7 +1438,7 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_rotate_euler)(const QMvec3& angles)
 
 //to mat3:
 
-QM_INLINE QMmat3 QM_PREFIX(mat4_top_left)(const QMmat4& m)
+QM_INLINE QMmat3 QM_PREFIX(top_left)(const QMmat4& m)
 {
 	QMmat3 result;
 
@@ -1457,7 +1457,7 @@ QM_INLINE QMmat3 QM_PREFIX(mat4_top_left)(const QMmat4& m)
 
 //projection:
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_perspective)(float fov, float aspect, float near, float far)
+QM_INLINE QMmat4 QM_PREFIX(perspective)(float fov, float aspect, float near, float far)
 {
 	QMmat4 result = {0};
 
@@ -1477,7 +1477,7 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_perspective)(float fov, float aspect, float near
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_orthographic)(float left, float right, float bot, float top, float near, float far)
+QM_INLINE QMmat4 QM_PREFIX(orthographic)(float left, float right, float bot, float top, float near, float far)
 {
 	QMmat4 result = QM_PREFIX(mat4_identity)();
 
@@ -1494,7 +1494,7 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_orthographic)(float left, float right, float bot
 
 //view matrix:
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_look)(const QMvec3& pos, const QMvec3& dir, const QMvec3& up)
+QM_INLINE QMmat4 QM_PREFIX(look)(const QMvec3& pos, const QMvec3& dir, const QMvec3& up)
 {
 	QMmat4 result;
 
@@ -1513,17 +1513,17 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_look)(const QMvec3& pos, const QMvec3& dir, cons
 	RUD.m[2][2] = dir.z;
 
 	QMvec3 oppPos = {-pos.x, -pos.y, -pos.z};	
-	result = RUD * QM_PREFIX(mat4_translate)(oppPos);
+	result = RUD * QM_PREFIX(translate)(oppPos);
 
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_lookat)(const QMvec3& pos, const QMvec3& target, const QMvec3& up)
+QM_INLINE QMmat4 QM_PREFIX(lookat)(const QMvec3& pos, const QMvec3& target, const QMvec3& up)
 {
 	QMmat4 result;
 
 	QMvec3 dir = QM_PREFIX(normalize)(pos - target);
-	result = QM_PREFIX(mat4_look)(pos, dir, up);
+	result = QM_PREFIX(look)(pos, dir, up);
 
 	return result;
 }
