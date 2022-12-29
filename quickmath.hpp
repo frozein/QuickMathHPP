@@ -17,7 +17,7 @@
  * to "#define QM_INCLUDE_IOSTREAM 0" and any iostream related functions will not be compiled
  * 
  * to disable the need to link with the C runtime library, change the macros beginning
- * on line 117 and the #include on line 115 to the appropirate functions/files
+ * on line 115 and the #include on line 113 to the appropirate functions/files
  * 
  * ------------------------------------------------------------------------
  * 
@@ -107,8 +107,6 @@
 #if QM_INCLUDE_IOSTREAM
 	#include <iostream>
 #endif
-
-#define QM_INLINE static inline
 
 //if you wish to not use any of the CRT functions, you must #define your
 //own versions of the below functions and #include the appropriate header
@@ -235,19 +233,19 @@ union quaternion
 #define QM_MAX(x, y) ((x) > (y) ? (x) : (y))
 #define QM_ABS(x) ((x) > 0 ? (x) : -(x))
 
-QM_INLINE float rad_to_deg(float rad)
+inline float rad_to_deg(float rad)
 {
 	return rad * 57.2957795131f;
 }
 
-QM_INLINE float deg_to_rad(float deg)
+inline float deg_to_rad(float deg)
 {
 	return deg * 0.01745329251f;
 }
 
 #if QM_USE_SSE
 
-QM_INLINE __m128 mat4_mult_column_sse(__m128 c1, mat4 m2)
+inline __m128 mat4_mult_column_sse(__m128 c1, mat4 m2)
 {
 	__m128 result;
 
@@ -310,7 +308,7 @@ std::istream& operator>>(std::istream& is, vec4& v)
 
 //addition:
 
-QM_INLINE vec2 operator+(const vec2& v1, const vec2& v2)
+inline vec2 operator+(const vec2& v1, const vec2& v2)
 {
 	vec2 result;
 
@@ -320,7 +318,7 @@ QM_INLINE vec2 operator+(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE vec3 operator+(const vec3& v1, const vec3& v2)
+inline vec3 operator+(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -331,7 +329,7 @@ QM_INLINE vec3 operator+(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE vec4 operator+(const vec4& v1, const vec4& v2)
+inline vec4 operator+(const vec4& v1, const vec4& v2)
 {
 	vec4 result;
 
@@ -353,7 +351,7 @@ QM_INLINE vec4 operator+(const vec4& v1, const vec4& v2)
 
 //subtraction:
 
-QM_INLINE vec2 operator-(const vec2& v1, const vec2& v2)
+inline vec2 operator-(const vec2& v1, const vec2& v2)
 {
 	vec2 result;
 
@@ -363,7 +361,7 @@ QM_INLINE vec2 operator-(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE vec3 operator-(const vec3& v1, const vec3& v2)
+inline vec3 operator-(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -374,7 +372,7 @@ QM_INLINE vec3 operator-(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE vec4 operator-(const vec4& v1, const vec4& v2)
+inline vec4 operator-(const vec4& v1, const vec4& v2)
 {
 	vec4 result;
 
@@ -396,7 +394,7 @@ QM_INLINE vec4 operator-(const vec4& v1, const vec4& v2)
 
 //multiplication:
 
-QM_INLINE vec2 operator*(const vec2& v1, const vec2& v2)
+inline vec2 operator*(const vec2& v1, const vec2& v2)
 {
 	vec2 result;
 
@@ -406,7 +404,7 @@ QM_INLINE vec2 operator*(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE vec3 operator*(const vec3& v1, const vec3& v2)
+inline vec3 operator*(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -417,7 +415,7 @@ QM_INLINE vec3 operator*(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE vec4 operator*(const vec4& v1, const vec4& v2)
+inline vec4 operator*(const vec4& v1, const vec4& v2)
 {
 	vec4 result;
 
@@ -439,7 +437,7 @@ QM_INLINE vec4 operator*(const vec4& v1, const vec4& v2)
 
 //division:
 
-QM_INLINE vec2 operator/(const vec2& v1, const vec2& v2)
+inline vec2 operator/(const vec2& v1, const vec2& v2)
 {
 	vec2 result;
 
@@ -449,7 +447,7 @@ QM_INLINE vec2 operator/(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE vec3 operator/(const vec3& v1, const vec3& v2)
+inline vec3 operator/(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -460,7 +458,7 @@ QM_INLINE vec3 operator/(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE vec4 operator/(const vec4& v1, const vec4& v2)
+inline vec4 operator/(const vec4& v1, const vec4& v2)
 {
 	vec4 result;
 
@@ -482,7 +480,7 @@ QM_INLINE vec4 operator/(const vec4& v1, const vec4& v2)
 
 //scalar multiplication:
 
-QM_INLINE vec2 operator*(const vec2& v, float s)
+inline vec2 operator*(const vec2& v, float s)
 {
 	vec2 result;
 
@@ -492,7 +490,7 @@ QM_INLINE vec2 operator*(const vec2& v, float s)
 	return result;
 }
 
-QM_INLINE vec3 operator*(const vec3& v, float s)
+inline vec3 operator*(const vec3& v, float s)
 {
 	vec3 result;
 
@@ -503,7 +501,7 @@ QM_INLINE vec3 operator*(const vec3& v, float s)
 	return result;
 }
 
-QM_INLINE vec4 operator*(const vec4& v, float s)
+inline vec4 operator*(const vec4& v, float s)
 {
 	vec4 result;
 
@@ -524,24 +522,24 @@ QM_INLINE vec4 operator*(const vec4& v, float s)
 	return result;
 }
 
-QM_INLINE vec2 operator*(float s, const vec2& v)
+inline vec2 operator*(float s, const vec2& v)
 {
 	return v * s;
 }
 
-QM_INLINE vec3 operator*(float s, const vec3& v)
+inline vec3 operator*(float s, const vec3& v)
 {
 	return v * s;
 }
 
-QM_INLINE vec4 operator*(float s, const vec4& v)
+inline vec4 operator*(float s, const vec4& v)
 {
 	return v * s;
 }
 
 //scalar division:
 
-QM_INLINE vec2 operator/(const vec2& v, float s)
+inline vec2 operator/(const vec2& v, float s)
 {
 	vec2 result;
 
@@ -551,7 +549,7 @@ QM_INLINE vec2 operator/(const vec2& v, float s)
 	return result;
 }
 
-QM_INLINE vec3 operator/(const vec3& v, float s)
+inline vec3 operator/(const vec3& v, float s)
 {
 	vec3 result;
 
@@ -562,7 +560,7 @@ QM_INLINE vec3 operator/(const vec3& v, float s)
 	return result;
 }
 
-QM_INLINE vec4 operator/(const vec4& v, float s)
+inline vec4 operator/(const vec4& v, float s)
 {
 	vec4 result;
 
@@ -583,7 +581,7 @@ QM_INLINE vec4 operator/(const vec4& v, float s)
 	return result;
 }
 
-QM_INLINE vec2 operator/(float s, const vec2& v)
+inline vec2 operator/(float s, const vec2& v)
 {
 	vec2 result;
 
@@ -593,7 +591,7 @@ QM_INLINE vec2 operator/(float s, const vec2& v)
 	return result;
 }
 
-QM_INLINE vec3 operator/(float s, const vec3& v)
+inline vec3 operator/(float s, const vec3& v)
 {
 	vec3 result;
 
@@ -604,7 +602,7 @@ QM_INLINE vec3 operator/(float s, const vec3& v)
 	return result;
 }
 
-QM_INLINE vec4 operator/(float s, const vec4& v)
+inline vec4 operator/(float s, const vec4& v)
 {
 	vec4 result;
 
@@ -627,7 +625,7 @@ QM_INLINE vec4 operator/(float s, const vec4& v)
 
 //dot product:
 
-QM_INLINE float dot(const vec2& v1, const vec2& v2)
+inline float dot(const vec2& v1, const vec2& v2)
 {
 	float result;
 
@@ -636,7 +634,7 @@ QM_INLINE float dot(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE float dot(const vec3& v1, const vec3& v2)
+inline float dot(const vec3& v1, const vec3& v2)
 {
 	float result;
 
@@ -645,7 +643,7 @@ QM_INLINE float dot(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE float dot(const vec4& v1, const vec4& v2)
+inline float dot(const vec4& v1, const vec4& v2)
 {
 	float result;
 
@@ -667,7 +665,7 @@ QM_INLINE float dot(const vec4& v1, const vec4& v2)
 
 //cross product
 
-QM_INLINE vec3 cross(const vec3& v1, const vec3& v2)
+inline vec3 cross(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -680,7 +678,7 @@ QM_INLINE vec3 cross(const vec3& v1, const vec3& v2)
 
 //length:
 
-QM_INLINE float length(const vec2& v)
+inline float length(const vec2& v)
 {
 	float result;
 
@@ -689,7 +687,7 @@ QM_INLINE float length(const vec2& v)
 	return result;
 }
 
-QM_INLINE float length(const vec3& v)
+inline float length(const vec3& v)
 {
 	float result;
 
@@ -698,7 +696,7 @@ QM_INLINE float length(const vec3& v)
 	return result;
 }
 
-QM_INLINE float length(const vec4& v)
+inline float length(const vec4& v)
 {
 	float result;
 
@@ -709,7 +707,7 @@ QM_INLINE float length(const vec4& v)
 
 //normalize:
 
-QM_INLINE vec2 normalize(const vec2& v)
+inline vec2 normalize(const vec2& v)
 {
 	vec2 result;
 
@@ -720,7 +718,7 @@ QM_INLINE vec2 normalize(const vec2& v)
 	return result;
 }
 
-QM_INLINE vec3 normalize(const vec3& v)
+inline vec3 normalize(const vec3& v)
 {
 	vec3 result;
 
@@ -731,7 +729,7 @@ QM_INLINE vec3 normalize(const vec3& v)
 	return result;
 }
 
-QM_INLINE vec4 normalize(const vec4& v)
+inline vec4 normalize(const vec4& v)
 {
 	vec4 result;
 
@@ -743,7 +741,7 @@ QM_INLINE vec4 normalize(const vec4& v)
 
 //distance:
 
-QM_INLINE float distance(const vec2& v1, const vec2& v2)
+inline float distance(const vec2& v1, const vec2& v2)
 {
 	float result;
 
@@ -753,7 +751,7 @@ QM_INLINE float distance(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE float distance(const vec3& v1, const vec3& v2)
+inline float distance(const vec3& v1, const vec3& v2)
 {
 	float result;
 
@@ -763,7 +761,7 @@ QM_INLINE float distance(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE float distance(const vec4& v1, const vec4& v2)
+inline float distance(const vec4& v1, const vec4& v2)
 {
 	float result;
 
@@ -775,7 +773,7 @@ QM_INLINE float distance(const vec4& v1, const vec4& v2)
 
 //equality:
 
-QM_INLINE bool operator==(const vec2& v1, const vec2& v2)
+inline bool operator==(const vec2& v1, const vec2& v2)
 {
 	bool result;
 
@@ -784,7 +782,7 @@ QM_INLINE bool operator==(const vec2& v1, const vec2& v2)
 	return result;	
 }
 
-QM_INLINE bool operator==(const vec3& v1, const vec3& v2)
+inline bool operator==(const vec3& v1, const vec3& v2)
 {
 	bool result;
 
@@ -793,7 +791,7 @@ QM_INLINE bool operator==(const vec3& v1, const vec3& v2)
 	return result;	
 }
 
-QM_INLINE bool operator==(const vec4& v1, const vec4& v2)
+inline bool operator==(const vec4& v1, const vec4& v2)
 {
 	bool result;
 
@@ -805,7 +803,7 @@ QM_INLINE bool operator==(const vec4& v1, const vec4& v2)
 
 //min:
 
-QM_INLINE vec2 min(const vec2& v1, const vec2& v2)
+inline vec2 min(const vec2& v1, const vec2& v2)
 {
 	vec2 result;
 
@@ -815,7 +813,7 @@ QM_INLINE vec2 min(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE vec3 min(const vec3& v1, const vec3& v2)
+inline vec3 min(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -826,7 +824,7 @@ QM_INLINE vec3 min(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE vec4 min(const vec4& v1, const vec4& v2)
+inline vec4 min(const vec4& v1, const vec4& v2)
 {
 	vec4 result;
 
@@ -848,7 +846,7 @@ QM_INLINE vec4 min(const vec4& v1, const vec4& v2)
 
 //max:
 
-QM_INLINE vec2 max(const vec2& v1, const vec2& v2)
+inline vec2 max(const vec2& v1, const vec2& v2)
 {
 	vec2 result;
 
@@ -858,7 +856,7 @@ QM_INLINE vec2 max(const vec2& v1, const vec2& v2)
 	return result;
 }
 
-QM_INLINE vec3 max(const vec3& v1, const vec3& v2)
+inline vec3 max(const vec3& v1, const vec3& v2)
 {
 	vec3 result;
 
@@ -869,7 +867,7 @@ QM_INLINE vec3 max(const vec3& v1, const vec3& v2)
 	return result;
 }
 
-QM_INLINE vec4 max(const vec4& v1, const vec4& v2)
+inline vec4 max(const vec4& v1, const vec4& v2)
 {
 	vec4 result;
 
@@ -926,7 +924,7 @@ std::istream& operator>>(std::istream& is, mat4& m)
 
 //initialization:
 
-QM_INLINE mat3 mat3_identity()
+inline mat3 mat3_identity()
 {
 	mat3 result = {
 		1.0f, 0.0f, 0.0f,
@@ -937,7 +935,7 @@ QM_INLINE mat3 mat3_identity()
 	return result;
 }
 
-QM_INLINE mat4 mat4_identity()
+inline mat4 mat4_identity()
 {
 	mat4 result = {
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -951,7 +949,7 @@ QM_INLINE mat4 mat4_identity()
 
 //addition:
 
-QM_INLINE mat3 operator+(const mat3& m1, const mat3& m2)
+inline mat3 operator+(const mat3& m1, const mat3& m2)
 {
 	mat3 result;
 
@@ -968,7 +966,7 @@ QM_INLINE mat3 operator+(const mat3& m1, const mat3& m2)
 	return result;
 }
 
-QM_INLINE mat4 operator+(const mat4& m1, const mat4& m2)
+inline mat4 operator+(const mat4& m1, const mat4& m2)
 {
 	mat4 result;
 
@@ -1005,7 +1003,7 @@ QM_INLINE mat4 operator+(const mat4& m1, const mat4& m2)
 
 //subtraction:
 
-QM_INLINE mat3 operator-(const mat3& m1, const mat3& m2)
+inline mat3 operator-(const mat3& m1, const mat3& m2)
 {
 	mat3 result;
 
@@ -1022,7 +1020,7 @@ QM_INLINE mat3 operator-(const mat3& m1, const mat3& m2)
 	return result;
 }
 
-QM_INLINE mat4 operator-(const mat4& m1, const mat4& m2)
+inline mat4 operator-(const mat4& m1, const mat4& m2)
 {
 	mat4 result;
 
@@ -1059,7 +1057,7 @@ QM_INLINE mat4 operator-(const mat4& m1, const mat4& m2)
 
 //multiplication:
 
-QM_INLINE mat3 operator*(const mat3& m1, const mat3& m2)
+inline mat3 operator*(const mat3& m1, const mat3& m2)
 {
 	mat3 result;
 
@@ -1076,7 +1074,7 @@ QM_INLINE mat3 operator*(const mat3& m1, const mat3& m2)
 	return result;
 }
 
-QM_INLINE mat4 operator*(const mat4& m1, const mat4& m2)
+inline mat4 operator*(const mat4& m1, const mat4& m2)
 {
 	mat4 result;
 
@@ -1111,7 +1109,7 @@ QM_INLINE mat4 operator*(const mat4& m1, const mat4& m2)
 	return result;
 }
 
-QM_INLINE vec3 operator*(const mat3& m, const vec3& v)
+inline vec3 operator*(const mat3& m, const vec3& v)
 {
 	vec3 result;
 
@@ -1122,7 +1120,7 @@ QM_INLINE vec3 operator*(const mat3& m, const vec3& v)
 	return result;
 }
 
-QM_INLINE vec4 operator*(const mat4& m, const vec4& v)
+inline vec4 operator*(const mat4& m, const vec4& v)
 {
 	vec4 result;
 
@@ -1144,7 +1142,7 @@ QM_INLINE vec4 operator*(const mat4& m, const vec4& v)
 
 //transpose:
 
-QM_INLINE mat3 transpose(const mat3& m)
+inline mat3 transpose(const mat3& m)
 {
 	mat3 result;
 
@@ -1161,7 +1159,7 @@ QM_INLINE mat3 transpose(const mat3& m)
 	return result;
 }
 
-QM_INLINE mat4 transpose(const mat4& m)
+inline mat4 transpose(const mat4& m)
 {
 	mat4 result = m;
 
@@ -1195,7 +1193,7 @@ QM_INLINE mat4 transpose(const mat4& m)
 
 //inverse:
 
-QM_INLINE mat3 inverse(const mat3& m)
+inline mat3 inverse(const mat3& m)
 {
 	mat3 result;
 
@@ -1229,7 +1227,7 @@ QM_INLINE mat3 inverse(const mat3& m)
 	return result;
 }
 
-QM_INLINE mat4 inverse(const mat4& mat)
+inline mat4 inverse(const mat4& mat)
 {
 	//TODO: this function is not SIMD optimized, figure out how to do it
 
@@ -1320,7 +1318,7 @@ QM_INLINE mat4 inverse(const mat4& mat)
 
 //translation:
 
-QM_INLINE mat3 translate(const vec2& t)
+inline mat3 translate(const vec2& t)
 {
 	mat3 result = mat3_identity();
 
@@ -1330,7 +1328,7 @@ QM_INLINE mat3 translate(const vec2& t)
 	return result;
 }
 
-QM_INLINE mat4 translate(const vec3& t)
+inline mat4 translate(const vec3& t)
 {
 	mat4 result = mat4_identity();
 
@@ -1343,7 +1341,7 @@ QM_INLINE mat4 translate(const vec3& t)
 
 //scaling:
 
-QM_INLINE mat3 scale(const vec2& s)
+inline mat3 scale(const vec2& s)
 {
 	mat3 result = mat3_identity();
 
@@ -1353,7 +1351,7 @@ QM_INLINE mat3 scale(const vec2& s)
 	return result;
 }
 
-QM_INLINE mat4 scale(const vec3& s)
+inline mat4 scale(const vec3& s)
 {
 	mat4 result = mat4_identity();
 
@@ -1366,7 +1364,7 @@ QM_INLINE mat4 scale(const vec3& s)
 
 //rotation:
 
-QM_INLINE mat3 rotate(float angle)
+inline mat3 rotate(float angle)
 {
 	mat3 result = mat3_identity();
 
@@ -1382,7 +1380,7 @@ QM_INLINE mat3 rotate(float angle)
 	return result;
 }
 
-QM_INLINE mat4 rotate(const vec3& axis, float angle)
+inline mat4 rotate(const vec3& axis, float angle)
 {
 	mat4 result = mat4_identity();
 
@@ -1406,7 +1404,7 @@ QM_INLINE mat4 rotate(const vec3& axis, float angle)
 	return result;
 }
 
-QM_INLINE mat4 rotate(const vec3& euler)
+inline mat4 rotate(const vec3& euler)
 {
 	mat4 result = mat4_identity();
 
@@ -1437,7 +1435,7 @@ QM_INLINE mat4 rotate(const vec3& euler)
 
 //to mat3:
 
-QM_INLINE mat3 top_left(const mat4& m)
+inline mat3 top_left(const mat4& m)
 {
 	mat3 result;
 
@@ -1456,7 +1454,7 @@ QM_INLINE mat3 top_left(const mat4& m)
 
 //projection:
 
-QM_INLINE mat4 perspective(float fov, float aspect, float near, float far)
+inline mat4 perspective(float fov, float aspect, float near, float far)
 {
 	mat4 result = {0};
 
@@ -1476,7 +1474,7 @@ QM_INLINE mat4 perspective(float fov, float aspect, float near, float far)
 	return result;
 }
 
-QM_INLINE mat4 orthographic(float left, float right, float bot, float top, float near, float far)
+inline mat4 orthographic(float left, float right, float bot, float top, float near, float far)
 {
 	mat4 result = mat4_identity();
 
@@ -1493,7 +1491,7 @@ QM_INLINE mat4 orthographic(float left, float right, float bot, float top, float
 
 //view matrix:
 
-QM_INLINE mat4 look(const vec3& pos, const vec3& dir, const vec3& up)
+inline mat4 look(const vec3& pos, const vec3& dir, const vec3& up)
 {
 	mat4 result;
 
@@ -1517,7 +1515,7 @@ QM_INLINE mat4 look(const vec3& pos, const vec3& dir, const vec3& up)
 	return result;
 }
 
-QM_INLINE mat4 lookat(const vec3& pos, const vec3& target, const vec3& up)
+inline mat4 lookat(const vec3& pos, const vec3& target, const vec3& up)
 {
 	mat4 result;
 
@@ -1546,7 +1544,7 @@ std::istream& operator>>(std::istream& is, quaternion& q)
 
 #endif
 
-QM_INLINE quaternion quaternion_identity()
+inline quaternion quaternion_identity()
 {
 	quaternion result;
 
@@ -1558,7 +1556,7 @@ QM_INLINE quaternion quaternion_identity()
 	return result;
 }
 
-QM_INLINE quaternion operator+(const quaternion& q1, const quaternion& q2)
+inline quaternion operator+(const quaternion& q1, const quaternion& q2)
 {
 	quaternion result;
 
@@ -1578,7 +1576,7 @@ QM_INLINE quaternion operator+(const quaternion& q1, const quaternion& q2)
 	return result;
 }
 
-QM_INLINE quaternion operator-(const quaternion& q1, const quaternion& q2)
+inline quaternion operator-(const quaternion& q1, const quaternion& q2)
 {
 	quaternion result;
 
@@ -1598,7 +1596,7 @@ QM_INLINE quaternion operator-(const quaternion& q1, const quaternion& q2)
 	return result;
 }
 
-QM_INLINE quaternion operator*(const quaternion& q1, const quaternion& q2)
+inline quaternion operator*(const quaternion& q1, const quaternion& q2)
 {
 	quaternion result;
 
@@ -1635,7 +1633,7 @@ QM_INLINE quaternion operator*(const quaternion& q1, const quaternion& q2)
 	return result;
 }
 
-QM_INLINE quaternion operator*(const quaternion& q, float s)
+inline quaternion operator*(const quaternion& q, float s)
 {
 	quaternion result;
 
@@ -1656,12 +1654,12 @@ QM_INLINE quaternion operator*(const quaternion& q, float s)
 	return result;
 }
 
-QM_INLINE quaternion operator*(float s, const quaternion& q)
+inline quaternion operator*(float s, const quaternion& q)
 {
 	return q * s;
 }
 
-QM_INLINE quaternion operator/(const quaternion& q, float s)
+inline quaternion operator/(const quaternion& q, float s)
 {
 	quaternion result;
 
@@ -1682,7 +1680,7 @@ QM_INLINE quaternion operator/(const quaternion& q, float s)
 	return result;
 }
 
-QM_INLINE quaternion operator/(float s, const quaternion& q)
+inline quaternion operator/(float s, const quaternion& q)
 {
 	quaternion result;
 
@@ -1703,7 +1701,7 @@ QM_INLINE quaternion operator/(float s, const quaternion& q)
 	return result;
 }
 
-QM_INLINE float dot(const quaternion& q1, const quaternion& q2)
+inline float dot(const quaternion& q1, const quaternion& q2)
 {
 	float result;
 
@@ -1723,7 +1721,7 @@ QM_INLINE float dot(const quaternion& q1, const quaternion& q2)
 	return result;
 }
 
-QM_INLINE float length(const quaternion& q)
+inline float length(const quaternion& q)
 {
 	float result;
 
@@ -1732,7 +1730,7 @@ QM_INLINE float length(const quaternion& q)
 	return result;
 }
 
-QM_INLINE quaternion normalize(const quaternion& q)
+inline quaternion normalize(const quaternion& q)
 {
 	quaternion result;
 
@@ -1743,7 +1741,7 @@ QM_INLINE quaternion normalize(const quaternion& q)
 	return result;
 }
 
-QM_INLINE quaternion conjugate(const quaternion& q)
+inline quaternion conjugate(const quaternion& q)
 {
 	quaternion result;
 
@@ -1755,7 +1753,7 @@ QM_INLINE quaternion conjugate(const quaternion& q)
 	return result;
 }
 
-QM_INLINE quaternion inverse(const quaternion& q)
+inline quaternion inverse(const quaternion& q)
 {
 	quaternion result;
 
@@ -1783,7 +1781,7 @@ QM_INLINE quaternion inverse(const quaternion& q)
 	return result;
 }
 
-QM_INLINE quaternion slerp(const quaternion& q1, const quaternion& q2, float a)
+inline quaternion slerp(const quaternion& q1, const quaternion& q2, float a)
 {
 	quaternion result;
 
@@ -1803,7 +1801,7 @@ QM_INLINE quaternion slerp(const quaternion& q1, const quaternion& q2, float a)
 	return result;
 }
 
-QM_INLINE bool operator==(const quaternion& q1, const quaternion& q2)
+inline bool operator==(const quaternion& q1, const quaternion& q2)
 {
 	bool result;
 
@@ -1813,7 +1811,7 @@ QM_INLINE bool operator==(const quaternion& q1, const quaternion& q2)
 	return result;	
 }
 
-QM_INLINE quaternion quaternion_from_axis_angle(const vec3& axis, float angle)
+inline quaternion quaternion_from_axis_angle(const vec3& axis, float angle)
 {
 	quaternion result;
 
@@ -1829,7 +1827,7 @@ QM_INLINE quaternion quaternion_from_axis_angle(const vec3& axis, float angle)
 	return result;
 }
 
-QM_INLINE quaternion quaternion_from_euler(const vec3& angles)
+inline quaternion quaternion_from_euler(const vec3& angles)
 {
 	quaternion result;
 
@@ -1871,7 +1869,7 @@ QM_INLINE quaternion quaternion_from_euler(const vec3& angles)
 	return result;
 }
 
-QM_INLINE mat4 quaternion_to_mat4(const quaternion& q)
+inline mat4 quaternion_to_mat4(const quaternion& q)
 {
 	mat4 result = mat4_identity();
 
