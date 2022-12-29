@@ -8,84 +8,86 @@
  * 
  * ------------------------------------------------------------------------
  * 
- * to change or disable the function prefix (the default is "QM_"), change the macro on
- * line 113 to contain the desired prefix, or "#define QM_PREFIX" for no prefix
+ * all the types and functions provided by this library are under the the "qm" namespace
  * 
  * if you wish not to use SSE3 intrinsics (if they are not supported for example),
- * change the macro on line 97 to "#define QM_USE_SSE 0"
+ * change the macro on line 95 to "#define QM_USE_SSE 0"
+ * 
+ * if you wish not to include <iostream> in your project, simply change the macro on line 106
+ * to "#define QM_INCLUDE_IOSTREAM 0" and any iostream related functions will not be compiled
  * 
  * to disable the need to link with the C runtime library, change the macros beginning
- * on line 119 and the #include on line 117 to the appropirate functions/files
+ * on line 117 and the #include on line 115 to the appropirate functions/files
  * 
  * ------------------------------------------------------------------------
  * 
  * the following functions are defined:
- * (QMvecn means a vector of dimension, 2, 3, or 4, named QMvec2, QMvec3, and QMvec4)
- * (QMmatn means a matrix of dimensions 3x3 or 4x4, named QMmat3 and QMmat4)
+ * (vecn means a vector of dimension, 2, 3, or 4, named vec2, vec3, and vec4)
+ * (matn means a matrix of dimensions 3x3 or 4x4, named mat3 and mat4)
  * 
- * QMvecn       QM_dot                        (QMvecn v1, QMvecn v2);
- * QMvec3       QM_cross                      (QMvec3 v1, QMvec3 v2);
- * float        QM_length                     (QMvecn v);
- * QMvecn       QM_normalize                  (QMvecn v);
- * float        QM_distance                   (QMvecn v1, QMvecn v2);
- * QMvecn       QM_min                        (QMvecn v1, QMvecn v2);
- * QMvecn       QM_max                        (QMvecn v1, QMvecn v2);
+ * vecn       dot                        (vecn v1, vecn v2);
+ * vec3       cross                      (vec3 v1, vec3 v2);
+ * float      length                     (vecn v);
+ * vecn       normalize                  (vecn v);
+ * float      distance                   (vecn v1, vecn v2);
+ * vecn       min                        (vecn v1, vecn v2);
+ * vecn       max                        (vecn v1, vecn v2);
  * 
- * QMmatn       QM_matn_identity              ();
- * QMmatn       QM_transpose                  (QMmatn m);
- * QMmatn       QM_inverse                    (QMmatn m);
+ * matn       matn_identity              ();
+ * matn       transpose                  (matn m);
+ * matn       inverse                    (matn m);
  * 
- * QMmat3       QM_translate                  (QMvec2 t);
- * QMmat4       QM_translate                  (QMvec3 t);
- * QMmat3       QM_scale                      (QMvec2 s);
- * QMmat4       QM_scale                      (QMvec3 s);
- * QMmat3       QM_rotate                     (float angle);
- * QMmat4       QM_rotate                     (QMvec3 axis, float angle);
- * QMmat4       QM_rotate                     (QMvec3 euler);
- * QMmat3       QM_top_left                   (QMmat4 m);
+ * mat3       translate                  (vec2 t);
+ * mat4       translate                  (vec3 t);
+ * mat3       scale                      (vec2 s);
+ * mat4       scale                      (vec3 s);
+ * mat3       rotate                     (float angle);
+ * mat4       rotate                     (vec3 axis, float angle);
+ * mat4       rotate                     (vec3 euler);
+ * mat3       top_left                   (mat4 m);
  *
- * QMmat4       QM_perspective                (float fov, float aspect, float near, float far);
- * QMmat4       QM_orthographic               (float left, float right, float bot, float top, float near, float far);
- * QMmat4       QM_look                       (QMvec3 pos, QMvec3 dir   , QMvec3 up);
- * QMmat4       QM_lookat                     (QMvec3 pos, QMvec3 target, QMvec3 up);
+ * mat4       perspective                (float fov, float aspect, float near, float far);
+ * mat4       orthographic               (float left, float right, float bot, float top, float near, float far);
+ * mat4       look                       (vec3 pos, vec3 dir   , vec3 up);
+ * mat4       lookat                     (vec3 pos, vec3 target, vec3 up);
  * 
- * QMquaternion QM_quaternion_identity        ();
- * QMquaternion QM_dot                        (QMquaternion q1, QMquaternion q2);
- * float        QM_length                     (QMquaternion q);
- * QMquaternion QM_normalize                  (QMquaternion q);
- * QMquaternion QM_conjugate                  (QMquaternion q);
- * QMquaternion QM_inverse                    (QMquaternion q);
- * QMquaternion QM_slerp                      (QMquaternion q1, QMquaternion q2, float a);
- * QMquaternion QM_quaternion_from_axis_angle (QMvec3 axis, float angle);
- * QMquaternion QM_quaternion_from_euler      (QMvec3 angles);
- * QMmat4       QM_quaternion_to_mat4         (QMquaternion q);
+ * quaternion quaternion_identity        ();
+ * quaternion dot                        (quaternion q1, quaternion q2);
+ * float      length                     (quaternion q);
+ * quaternion normalize                  (quaternion q);
+ * quaternion conjugate                  (quaternion q);
+ * quaternion inverse                    (quaternion q);
+ * quaternion slerp                      (quaternion q1, quaternion q2, float a);
+ * quaternion quaternion_from_axis_angle (vec3 axis, float angle);
+ * quaternion quaternion_from_euler      (vec3 angles);
+ * mat4       quaternion_to_mat4         (quaternion q);
  * 
  * the following operators are defined:
- * (QMvecn means a vector of dimension, 2, 3, or 4, named QMvec2, QMvec3, and QMvec4)
- * (QMmatn means a matrix of dimensions 3x3 or 4x4, named QMmat3 and QMmat4)
+ * (vecn means a vector of dimension, 2, 3, or 4, named vec2, vec3, and vec4)
+ * (matn means a matrix of dimensions 3x3 or 4x4, named mat3 and mat4)
  * 
- * QMvecn + QMvecn              -> QMvecn
- * QMvecn - QMvecn              -> QMvecn
- * QMvecn * QMvecn              -> QMvecn
- * QMvecn * float               -> QMvecn
- * float * QMvecn               -> QMvecn
- * QMvecn / float               -> QMvecn
- * float / QMvecn               -> QMvecn
- * QMvecn == QMvecn             -> bool
+ * vecn + vecn              -> vecn
+ * vecn - vecn              -> vecn
+ * vecn * vecn              -> vecn
+ * vecn * float             -> vecn
+ * float * vecn             -> vecn
+ * vecn / float             -> vecn
+ * float / vecn             -> vecn
+ * vecn == vecn             -> bool
  * 
- * QMmatn + QMmatn              -> QMmatn
- * QMmatn - QMmatn              -> QMmatn
- * QMmatn * QMmatn              -> QMmatn
- * QMmatn * QMvecn              -> QMvecn
+ * matn + matn              -> matn
+ * matn - matn              -> matn
+ * matn * matn              -> matn
+ * matn * vecn              -> vecn
  * 
- * QMquaternion + QMquaternion  -> QMquaternion
- * QMquaternion - QMquaternion  -> QMquaternion
- * QMquaternion * QMquaternion  -> QMquaternion
- * QMquaternion * float         -> QMquaternion
- * float * QMquaternion         -> QMquaternion
- * QMquaternion / float         -> QMquaternion
- * float / QMquaternion         -> QMquaternion
- * QMquaternion == QMquaternion -> bool
+ * quaternion + quaternion  -> quaternion
+ * quaternion - quaternion  -> quaternion
+ * quaternion * quaternion  -> quaternion
+ * quaternion * float       -> quaternion
+ * float * quaternion       -> quaternion
+ * quaternion / float       -> quaternion
+ * float / quaternion       -> quaternion
+ * quaternion == quaternion -> bool
  */
 
 #ifndef QM_MATH_H
@@ -108,10 +110,6 @@
 
 #define QM_INLINE static inline
 
-//if you wish to set your own function prefix or remove it entirely,
-//simply change this macro:
-#define QM_PREFIX(name) QM_##name
-
 //if you wish to not use any of the CRT functions, you must #define your
 //own versions of the below functions and #include the appropriate header
 #include <math.h>
@@ -122,42 +120,43 @@
 #define QM_TANF  tanf
 #define QM_ACOSF acosf
 
+namespace qm
+{
+
 //----------------------------------------------------------------------//
 //STRUCT DEFINITIONS:
 
-typedef int QMbool;
-
 //a 2-dimensional vector of floats
-union QMvec2
+union vec2
 {
 	float v[2] = {};
 	struct{ float x, y; };
 	struct{ float w, h; };
 
-	QMvec2() = default;
-	QMvec2(float _x, float _y) { x = _x, y = _y; };
+	vec2() = default;
+	vec2(float _x, float _y) { x = _x, y = _y; };
 
 	float& operator[](size_t i) { return v[i]; };
 };
 
 //a 3-dimensional vector of floats
-union QMvec3
+union vec3
 {
 	float v[3] = {};
 	struct{ float x, y, z; };
 	struct{ float w, h, d; };
 	struct{ float r, g, b; };
 
-	QMvec3() = default;
-	QMvec3(float _x, float _y, float _z) { x = _x, y = _y, z = _z; };
-	QMvec3(QMvec2 _xy, float _z) { x = _xy.x, y = _xy.y, z = _z; };
-	QMvec3(float _x, QMvec3 _yz) { x = _x, y = _yz.x, z = _yz.y; };
+	vec3() = default;
+	vec3(float _x, float _y, float _z) { x = _x, y = _y, z = _z; };
+	vec3(vec2 _xy, float _z) { x = _xy.x, y = _xy.y, z = _z; };
+	vec3(float _x, vec3 _yz) { x = _x, y = _yz.x, z = _yz.y; };
 
 	float& operator[](size_t i) { return v[i]; };
 };
 
 //a 4-dimensional vector of floats
-union QMvec4
+union vec4
 {
 	float v[4] = {};
 	struct{ float x, y, z, w; };
@@ -169,11 +168,11 @@ union QMvec4
 
 	#endif
 
-	QMvec4() = default;
-	QMvec4(float _x, float _y, float _z, float _w) { x = _x, y = _y, z = _z, w = _w; };
-	QMvec4(QMvec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
-	QMvec4(float _x, QMvec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
-	QMvec4(QMvec2 _xy, QMvec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
+	vec4() = default;
+	vec4(float _x, float _y, float _z, float _w) { x = _x, y = _y, z = _z, w = _w; };
+	vec4(vec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
+	vec4(float _x, vec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
+	vec4(vec2 _xy, vec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
 
 	float& operator[](size_t i) { return v[i]; };
 };
@@ -181,20 +180,20 @@ union QMvec4
 //-----------------------------//
 //matrices are column-major
 
-union QMmat3
+union mat3
 {
 	float m[3][3] = {};
-	QMvec3 v[3];
+	vec3 v[3];
 
-	QMmat3() = default;
+	mat3() = default;
 
-	QMvec3& operator[](size_t i) { return v[i]; };
+	vec3& operator[](size_t i) { return v[i]; };
 };
 
-union QMmat4
+union mat4
 {
 	float m[4][4] = {};
-	QMvec4 v[4];
+	vec4 v[4];
 
 	#if QM_USE_SSE
 
@@ -202,14 +201,14 @@ union QMmat4
 
 	#endif
 
-	QMmat4() = default;
+	mat4() = default;
 
-	QMvec4& operator[](size_t i) { return v[i]; };
+	vec4& operator[](size_t i) { return v[i]; };
 };
 
 //-----------------------------//
 
-union QMquaternion
+union quaternion
 {
 	float q[4] = {};
 	struct{ float x, y, z, w; };
@@ -220,11 +219,11 @@ union QMquaternion
 
 	#endif
 
-	QMquaternion() = default;
-	QMquaternion(float _x, float _y, float _z, float _w) { x = _x, y = _y, z = _z, w = _w; };
-	QMquaternion(QMvec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
-	QMquaternion(float _x, QMvec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
-	QMquaternion(QMvec2 _xy, QMvec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
+	quaternion() = default;
+	quaternion(float _x, float _y, float _z, float _w) { x = _x, y = _y, z = _z, w = _w; };
+	quaternion(vec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
+	quaternion(float _x, vec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
+	quaternion(vec2 _xy, vec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
 
 	float operator[](size_t i) { return q[i]; };
 };
@@ -236,19 +235,19 @@ union QMquaternion
 #define QM_MAX(x, y) ((x) > (y) ? (x) : (y))
 #define QM_ABS(x) ((x) > 0 ? (x) : -(x))
 
-QM_INLINE float QM_PREFIX(rad_to_deg)(float rad)
+QM_INLINE float rad_to_deg(float rad)
 {
 	return rad * 57.2957795131f;
 }
 
-QM_INLINE float QM_PREFIX(deg_to_rad)(float deg)
+QM_INLINE float deg_to_rad(float deg)
 {
 	return deg * 0.01745329251f;
 }
 
 #if QM_USE_SSE
 
-QM_INLINE __m128 QM_PREFIX(mat4_mult_column_sse)(__m128 c1, QMmat4 m2)
+QM_INLINE __m128 mat4_mult_column_sse(__m128 c1, mat4 m2)
 {
 	__m128 result;
 
@@ -269,19 +268,19 @@ QM_INLINE __m128 QM_PREFIX(mat4_mult_column_sse)(__m128 c1, QMmat4 m2)
 
 //output:
 
-std::ostream& operator<<(std::ostream& os, const QMvec2& v)
+std::ostream& operator<<(std::ostream& os, const vec2& v)
 {
 	os << v.x << ", " << v.y;
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const QMvec3& v)
+std::ostream& operator<<(std::ostream& os, const vec3& v)
 {
 	os << v.x << ", " << v.y << ", " << v.z;
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const QMvec4& v)
+std::ostream& operator<<(std::ostream& os, const vec4& v)
 {
 	os << v.x << ", " << v.y << ", " << v.z << ", " << v.w;
 	return os;
@@ -289,19 +288,19 @@ std::ostream& operator<<(std::ostream& os, const QMvec4& v)
 
 //input:
 
-std::istream& operator>>(std::istream& is, QMvec2& v)
+std::istream& operator>>(std::istream& is, vec2& v)
 {
 	is >> v.x >> v.y;
 	return is;
 }
 
-std::istream& operator>>(std::istream& is, QMvec3& v)
+std::istream& operator>>(std::istream& is, vec3& v)
 {
 	is >> v.x >> v.y >> v.z;
 	return is;
 }
 
-std::istream& operator>>(std::istream& is, QMvec4& v)
+std::istream& operator>>(std::istream& is, vec4& v)
 {
 	is >> v.x >> v.y >> v.z >> v.w;
 	return is;
@@ -311,9 +310,9 @@ std::istream& operator>>(std::istream& is, QMvec4& v)
 
 //addition:
 
-QM_INLINE QMvec2 operator+(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE vec2 operator+(const vec2& v1, const vec2& v2)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
@@ -321,9 +320,9 @@ QM_INLINE QMvec2 operator+(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE QMvec3 operator+(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 operator+(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
@@ -332,9 +331,9 @@ QM_INLINE QMvec3 operator+(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE QMvec4 operator+(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE vec4 operator+(const vec4& v1, const vec4& v2)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -354,9 +353,9 @@ QM_INLINE QMvec4 operator+(const QMvec4& v1, const QMvec4& v2)
 
 //subtraction:
 
-QM_INLINE QMvec2 operator-(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE vec2 operator-(const vec2& v1, const vec2& v2)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
@@ -364,9 +363,9 @@ QM_INLINE QMvec2 operator-(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE QMvec3 operator-(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 operator-(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
@@ -375,9 +374,9 @@ QM_INLINE QMvec3 operator-(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE QMvec4 operator-(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE vec4 operator-(const vec4& v1, const vec4& v2)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -397,9 +396,9 @@ QM_INLINE QMvec4 operator-(const QMvec4& v1, const QMvec4& v2)
 
 //multiplication:
 
-QM_INLINE QMvec2 operator*(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE vec2 operator*(const vec2& v1, const vec2& v2)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = v1.x * v2.x;
 	result.y = v1.y * v2.y;
@@ -407,9 +406,9 @@ QM_INLINE QMvec2 operator*(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE QMvec3 operator*(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 operator*(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = v1.x * v2.x;
 	result.y = v1.y * v2.y;
@@ -418,9 +417,9 @@ QM_INLINE QMvec3 operator*(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE QMvec4 operator*(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE vec4 operator*(const vec4& v1, const vec4& v2)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -440,9 +439,9 @@ QM_INLINE QMvec4 operator*(const QMvec4& v1, const QMvec4& v2)
 
 //division:
 
-QM_INLINE QMvec2 operator/(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE vec2 operator/(const vec2& v1, const vec2& v2)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = v1.x / v2.x;
 	result.y = v1.y / v2.y;
@@ -450,9 +449,9 @@ QM_INLINE QMvec2 operator/(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE QMvec3 operator/(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 operator/(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = v1.x / v2.x;
 	result.y = v1.y / v2.y;
@@ -461,9 +460,9 @@ QM_INLINE QMvec3 operator/(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE QMvec4 operator/(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE vec4 operator/(const vec4& v1, const vec4& v2)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -483,9 +482,9 @@ QM_INLINE QMvec4 operator/(const QMvec4& v1, const QMvec4& v2)
 
 //scalar multiplication:
 
-QM_INLINE QMvec2 operator*(const QMvec2& v, float s)
+QM_INLINE vec2 operator*(const vec2& v, float s)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = v.x * s;
 	result.y = v.y * s;
@@ -493,9 +492,9 @@ QM_INLINE QMvec2 operator*(const QMvec2& v, float s)
 	return result;
 }
 
-QM_INLINE QMvec3 operator*(const QMvec3& v, float s)
+QM_INLINE vec3 operator*(const vec3& v, float s)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = v.x * s;
 	result.y = v.y * s;
@@ -504,9 +503,9 @@ QM_INLINE QMvec3 operator*(const QMvec3& v, float s)
 	return result;
 }
 
-QM_INLINE QMvec4 operator*(const QMvec4& v, float s)
+QM_INLINE vec4 operator*(const vec4& v, float s)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -525,26 +524,26 @@ QM_INLINE QMvec4 operator*(const QMvec4& v, float s)
 	return result;
 }
 
-QM_INLINE QMvec2 operator*(float s, const QMvec2& v)
+QM_INLINE vec2 operator*(float s, const vec2& v)
 {
 	return v * s;
 }
 
-QM_INLINE QMvec3 operator*(float s, const QMvec3& v)
+QM_INLINE vec3 operator*(float s, const vec3& v)
 {
 	return v * s;
 }
 
-QM_INLINE QMvec4 operator*(float s, const QMvec4& v)
+QM_INLINE vec4 operator*(float s, const vec4& v)
 {
 	return v * s;
 }
 
 //scalar division:
 
-QM_INLINE QMvec2 operator/(const QMvec2& v, float s)
+QM_INLINE vec2 operator/(const vec2& v, float s)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = v.x / s;
 	result.y = v.y / s;
@@ -552,9 +551,9 @@ QM_INLINE QMvec2 operator/(const QMvec2& v, float s)
 	return result;
 }
 
-QM_INLINE QMvec3 operator/(const QMvec3& v, float s)
+QM_INLINE vec3 operator/(const vec3& v, float s)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = v.x / s;
 	result.y = v.y / s;
@@ -563,9 +562,9 @@ QM_INLINE QMvec3 operator/(const QMvec3& v, float s)
 	return result;
 }
 
-QM_INLINE QMvec4 operator/(const QMvec4& v, float s)
+QM_INLINE vec4 operator/(const vec4& v, float s)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -584,9 +583,9 @@ QM_INLINE QMvec4 operator/(const QMvec4& v, float s)
 	return result;
 }
 
-QM_INLINE QMvec2 operator/(float s, const QMvec2& v)
+QM_INLINE vec2 operator/(float s, const vec2& v)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = s / v.x;
 	result.y = s / v.y;
@@ -594,9 +593,9 @@ QM_INLINE QMvec2 operator/(float s, const QMvec2& v)
 	return result;
 }
 
-QM_INLINE QMvec3 operator/(float s, const QMvec3& v)
+QM_INLINE vec3 operator/(float s, const vec3& v)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = s / v.x;
 	result.y = s / v.y;
@@ -605,9 +604,9 @@ QM_INLINE QMvec3 operator/(float s, const QMvec3& v)
 	return result;
 }
 
-QM_INLINE QMvec4 operator/(float s, const QMvec4& v)
+QM_INLINE vec4 operator/(float s, const vec4& v)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -628,7 +627,7 @@ QM_INLINE QMvec4 operator/(float s, const QMvec4& v)
 
 //dot product:
 
-QM_INLINE float QM_PREFIX(dot)(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE float dot(const vec2& v1, const vec2& v2)
 {
 	float result;
 
@@ -637,7 +636,7 @@ QM_INLINE float QM_PREFIX(dot)(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(dot)(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE float dot(const vec3& v1, const vec3& v2)
 {
 	float result;
 
@@ -646,7 +645,7 @@ QM_INLINE float QM_PREFIX(dot)(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(dot)(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE float dot(const vec4& v1, const vec4& v2)
 {
 	float result;
 
@@ -668,9 +667,9 @@ QM_INLINE float QM_PREFIX(dot)(const QMvec4& v1, const QMvec4& v2)
 
 //cross product
 
-QM_INLINE QMvec3 QM_PREFIX(cross)(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 cross(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = (v1.y * v2.z) - (v1.z * v2.y);
 	result.y = (v1.z * v2.x) - (v1.x * v2.z);
@@ -681,62 +680,62 @@ QM_INLINE QMvec3 QM_PREFIX(cross)(const QMvec3& v1, const QMvec3& v2)
 
 //length:
 
-QM_INLINE float QM_PREFIX(length)(const QMvec2& v)
+QM_INLINE float length(const vec2& v)
 {
 	float result;
 
-	result = QM_SQRTF(QM_PREFIX(dot)(v, v));
+	result = QM_SQRTF(dot(v, v));
 
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(length)(const QMvec3& v)
+QM_INLINE float length(const vec3& v)
 {
 	float result;
 
-	result = QM_SQRTF(QM_PREFIX(dot)(v, v));
+	result = QM_SQRTF(dot(v, v));
 
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(length)(const QMvec4& v)
+QM_INLINE float length(const vec4& v)
 {
 	float result;
 
-	result = QM_SQRTF(QM_PREFIX(dot)(v, v));
+	result = QM_SQRTF(dot(v, v));
 
 	return result;
 }
 
 //normalize:
 
-QM_INLINE QMvec2 QM_PREFIX(normalize)(const QMvec2& v)
+QM_INLINE vec2 normalize(const vec2& v)
 {
-	QMvec2 result;
+	vec2 result;
 
-	float len = QM_PREFIX(length)(v);
+	float len = length(v);
 	if(len != 0.0f)
 		result = v / len;
 
 	return result;
 }
 
-QM_INLINE QMvec3 QM_PREFIX(normalize)(const QMvec3& v)
+QM_INLINE vec3 normalize(const vec3& v)
 {
-	QMvec3 result;
+	vec3 result;
 
-	float len = QM_PREFIX(length)(v);
+	float len = length(v);
 	if(len != 0.0f)
 		result = v / len;
 
 	return result;
 }
 
-QM_INLINE QMvec4 QM_PREFIX(normalize)(const QMvec4& v)
+QM_INLINE vec4 normalize(const vec4& v)
 {
-	QMvec4 result;
+	vec4 result;
 
-	float len = QM_PREFIX(length)(v);
+	float len = length(v);
 		result = v / len;
 
 	return result;
@@ -744,59 +743,59 @@ QM_INLINE QMvec4 QM_PREFIX(normalize)(const QMvec4& v)
 
 //distance:
 
-QM_INLINE float QM_PREFIX(distance)(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE float distance(const vec2& v1, const vec2& v2)
 {
 	float result;
 
-	QMvec2 to = v1 - v2;
-	result = QM_PREFIX(length)(to);
+	vec2 to = v1 - v2;
+	result = length(to);
 
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(distance)(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE float distance(const vec3& v1, const vec3& v2)
 {
 	float result;
 
-	QMvec3 to = v1 - v2;
-	result = QM_PREFIX(length)(to);
+	vec3 to = v1 - v2;
+	result = length(to);
 
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(distance)(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE float distance(const vec4& v1, const vec4& v2)
 {
 	float result;
 
-	QMvec4 to = v1 - v2;
-	result = QM_PREFIX(length)(to);
+	vec4 to = v1 - v2;
+	result = length(to);
 
 	return result;
 }
 
 //equality:
 
-QM_INLINE QMbool operator==(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE bool operator==(const vec2& v1, const vec2& v2)
 {
-	QMbool result;
+	bool result;
 
 	result = (v1.x == v2.x) && (v1.y == v2.y); 
 
 	return result;	
 }
 
-QM_INLINE QMbool operator==(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE bool operator==(const vec3& v1, const vec3& v2)
 {
-	QMbool result;
+	bool result;
 
 	result = (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z); 
 
 	return result;	
 }
 
-QM_INLINE QMbool operator==(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE bool operator==(const vec4& v1, const vec4& v2)
 {
-	QMbool result;
+	bool result;
 
 	//TODO: there are SIMD instructions for floating point equality, find a way to get a single bool from them
 	result = (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z) && (v1.w == v2.w); 
@@ -806,9 +805,9 @@ QM_INLINE QMbool operator==(const QMvec4& v1, const QMvec4& v2)
 
 //min:
 
-QM_INLINE QMvec2 QM_PREFIX(min)(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE vec2 min(const vec2& v1, const vec2& v2)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = QM_MIN(v1.x, v2.x);
 	result.y = QM_MIN(v1.y, v2.y);
@@ -816,9 +815,9 @@ QM_INLINE QMvec2 QM_PREFIX(min)(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE QMvec3 QM_PREFIX(min)(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 min(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = QM_MIN(v1.x, v2.x);
 	result.y = QM_MIN(v1.y, v2.y);
@@ -827,9 +826,9 @@ QM_INLINE QMvec3 QM_PREFIX(min)(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE QMvec4 QM_PREFIX(min)(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE vec4 min(const vec4& v1, const vec4& v2)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -849,9 +848,9 @@ QM_INLINE QMvec4 QM_PREFIX(min)(const QMvec4& v1, const QMvec4& v2)
 
 //max:
 
-QM_INLINE QMvec2 QM_PREFIX(max)(const QMvec2& v1, const QMvec2& v2)
+QM_INLINE vec2 max(const vec2& v1, const vec2& v2)
 {
-	QMvec2 result;
+	vec2 result;
 
 	result.x = QM_MAX(v1.x, v2.x);
 	result.y = QM_MAX(v1.y, v2.y);
@@ -859,9 +858,9 @@ QM_INLINE QMvec2 QM_PREFIX(max)(const QMvec2& v1, const QMvec2& v2)
 	return result;
 }
 
-QM_INLINE QMvec3 QM_PREFIX(max)(const QMvec3& v1, const QMvec3& v2)
+QM_INLINE vec3 max(const vec3& v1, const vec3& v2)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = QM_MAX(v1.x, v2.x);
 	result.y = QM_MAX(v1.y, v2.y);
@@ -870,9 +869,9 @@ QM_INLINE QMvec3 QM_PREFIX(max)(const QMvec3& v1, const QMvec3& v2)
 	return result;
 }
 
-QM_INLINE QMvec4 QM_PREFIX(max)(const QMvec4& v1, const QMvec4& v2)
+QM_INLINE vec4 max(const vec4& v1, const vec4& v2)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
@@ -897,13 +896,13 @@ QM_INLINE QMvec4 QM_PREFIX(max)(const QMvec4& v1, const QMvec4& v2)
 
 //output:
 
-std::ostream& operator<<(std::ostream& os, const QMmat3& m)
+std::ostream& operator<<(std::ostream& os, const mat3& m)
 {
 	os << m.v[0] << std::endl << m.v[1] << std::endl << m.v[2];
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const QMmat4& m)
+std::ostream& operator<<(std::ostream& os, const mat4& m)
 {
 	os << m.v[0] << std::endl << m.v[1] << std::endl << m.v[2] << std::endl << m.v[3];
 	return os;
@@ -911,13 +910,13 @@ std::ostream& operator<<(std::ostream& os, const QMmat4& m)
 
 //input:
 
-std::istream& operator>>(std::istream& is, QMmat3& m)
+std::istream& operator>>(std::istream& is, mat3& m)
 {
 	is >> m.v[0] >> m.v[1] >> m.v[2];
 	return is;
 }
 
-std::istream& operator>>(std::istream& is, QMmat4& m)
+std::istream& operator>>(std::istream& is, mat4& m)
 {
 	is >> m.v[0] >> m.v[1] >> m.v[2] >> m.v[3];
 	return is;
@@ -927,9 +926,9 @@ std::istream& operator>>(std::istream& is, QMmat4& m)
 
 //initialization:
 
-QM_INLINE QMmat3 QM_PREFIX(mat3_identity)()
+QM_INLINE mat3 mat3_identity()
 {
-	QMmat3 result = {
+	mat3 result = {
 		1.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 1.0f
@@ -938,9 +937,9 @@ QM_INLINE QMmat3 QM_PREFIX(mat3_identity)()
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(mat4_identity)()
+QM_INLINE mat4 mat4_identity()
 {
-	QMmat4 result = {
+	mat4 result = {
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
@@ -952,9 +951,9 @@ QM_INLINE QMmat4 QM_PREFIX(mat4_identity)()
 
 //addition:
 
-QM_INLINE QMmat3 operator+(const QMmat3& m1, const QMmat3& m2)
+QM_INLINE mat3 operator+(const mat3& m1, const mat3& m2)
 {
-	QMmat3 result;
+	mat3 result;
 
 	result.m[0][0] = m1.m[0][0] + m2.m[0][0];
 	result.m[0][1] = m1.m[0][1] + m2.m[0][1];
@@ -969,9 +968,9 @@ QM_INLINE QMmat3 operator+(const QMmat3& m1, const QMmat3& m2)
 	return result;
 }
 
-QM_INLINE QMmat4 operator+(const QMmat4& m1, const QMmat4& m2)
+QM_INLINE mat4 operator+(const mat4& m1, const mat4& m2)
 {
-	QMmat4 result;
+	mat4 result;
 
 	#if QM_USE_SSE
 
@@ -1006,9 +1005,9 @@ QM_INLINE QMmat4 operator+(const QMmat4& m1, const QMmat4& m2)
 
 //subtraction:
 
-QM_INLINE QMmat3 operator-(const QMmat3& m1, const QMmat3& m2)
+QM_INLINE mat3 operator-(const mat3& m1, const mat3& m2)
 {
-	QMmat3 result;
+	mat3 result;
 
 	result.m[0][0] = m1.m[0][0] - m2.m[0][0];
 	result.m[0][1] = m1.m[0][1] - m2.m[0][1];
@@ -1023,9 +1022,9 @@ QM_INLINE QMmat3 operator-(const QMmat3& m1, const QMmat3& m2)
 	return result;
 }
 
-QM_INLINE QMmat4 operator-(const QMmat4& m1, const QMmat4& m2)
+QM_INLINE mat4 operator-(const mat4& m1, const mat4& m2)
 {
-	QMmat4 result;
+	mat4 result;
 
 	#if QM_USE_SSE
 
@@ -1060,9 +1059,9 @@ QM_INLINE QMmat4 operator-(const QMmat4& m1, const QMmat4& m2)
 
 //multiplication:
 
-QM_INLINE QMmat3 operator*(const QMmat3& m1, const QMmat3& m2)
+QM_INLINE mat3 operator*(const mat3& m1, const mat3& m2)
 {
-	QMmat3 result;
+	mat3 result;
 
 	result.m[0][0] = m1.m[0][0] * m2.m[0][0] + m1.m[1][0] * m2.m[0][1] + m1.m[2][0] * m2.m[0][2];
 	result.m[0][1] = m1.m[0][1] * m2.m[0][0] + m1.m[1][1] * m2.m[0][1] + m1.m[2][1] * m2.m[0][2];
@@ -1077,16 +1076,16 @@ QM_INLINE QMmat3 operator*(const QMmat3& m1, const QMmat3& m2)
 	return result;
 }
 
-QM_INLINE QMmat4 operator*(const QMmat4& m1, const QMmat4& m2)
+QM_INLINE mat4 operator*(const mat4& m1, const mat4& m2)
 {
-	QMmat4 result;
+	mat4 result;
 
 	#if QM_USE_SSE
 
-	result.packed[0] = QM_PREFIX(mat4_mult_column_sse)(m2.packed[0], m1);
-	result.packed[1] = QM_PREFIX(mat4_mult_column_sse)(m2.packed[1], m1);
-	result.packed[2] = QM_PREFIX(mat4_mult_column_sse)(m2.packed[2], m1);
-	result.packed[3] = QM_PREFIX(mat4_mult_column_sse)(m2.packed[3], m1);
+	result.packed[0] = mat4_mult_column_sse(m2.packed[0], m1);
+	result.packed[1] = mat4_mult_column_sse(m2.packed[1], m1);
+	result.packed[2] = mat4_mult_column_sse(m2.packed[2], m1);
+	result.packed[3] = mat4_mult_column_sse(m2.packed[3], m1);
 
 	#else
 
@@ -1112,9 +1111,9 @@ QM_INLINE QMmat4 operator*(const QMmat4& m1, const QMmat4& m2)
 	return result;
 }
 
-QM_INLINE QMvec3 operator*(const QMmat3& m, const QMvec3& v)
+QM_INLINE vec3 operator*(const mat3& m, const vec3& v)
 {
-	QMvec3 result;
+	vec3 result;
 
 	result.x = m.m[0][0] * v.x + m.m[1][0] * v.y + m.m[2][0] * v.z;
 	result.y = m.m[0][1] * v.x + m.m[1][1] * v.y + m.m[2][1] * v.z;
@@ -1123,13 +1122,13 @@ QM_INLINE QMvec3 operator*(const QMmat3& m, const QMvec3& v)
 	return result;
 }
 
-QM_INLINE QMvec4 operator*(const QMmat4& m, const QMvec4& v)
+QM_INLINE vec4 operator*(const mat4& m, const vec4& v)
 {
-	QMvec4 result;
+	vec4 result;
 
 	#if QM_USE_SSE
 
-	result.packed = QM_PREFIX(mat4_mult_column_sse)(v.packed, m);
+	result.packed = mat4_mult_column_sse(v.packed, m);
 
 	#else
 
@@ -1145,9 +1144,9 @@ QM_INLINE QMvec4 operator*(const QMmat4& m, const QMvec4& v)
 
 //transpose:
 
-QM_INLINE QMmat3 QM_PREFIX(transpose)(const QMmat3& m)
+QM_INLINE mat3 transpose(const mat3& m)
 {
-	QMmat3 result;
+	mat3 result;
 
 	result.m[0][0] = m.m[0][0];
 	result.m[0][1] = m.m[1][0];
@@ -1162,9 +1161,9 @@ QM_INLINE QMmat3 QM_PREFIX(transpose)(const QMmat3& m)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(transpose)(const QMmat4& m)
+QM_INLINE mat4 transpose(const mat4& m)
 {
-	QMmat4 result = m;
+	mat4 result = m;
 
 	#if QM_USE_SSE
 
@@ -1196,9 +1195,9 @@ QM_INLINE QMmat4 QM_PREFIX(transpose)(const QMmat4& m)
 
 //inverse:
 
-QM_INLINE QMmat3 QM_PREFIX(inverse)(const QMmat3& m)
+QM_INLINE mat3 inverse(const mat3& m)
 {
-	QMmat3 result;
+	mat3 result;
 
 	float det;
   	float a = m.m[0][0], b = m.m[0][1], c = m.m[0][2],
@@ -1230,11 +1229,11 @@ QM_INLINE QMmat3 QM_PREFIX(inverse)(const QMmat3& m)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(inverse)(const QMmat4& mat)
+QM_INLINE mat4 inverse(const mat4& mat)
 {
 	//TODO: this function is not SIMD optimized, figure out how to do it
 
-	QMmat4 result;
+	mat4 result;
 
 	float tmp[6];
 	float det;
@@ -1321,9 +1320,9 @@ QM_INLINE QMmat4 QM_PREFIX(inverse)(const QMmat4& mat)
 
 //translation:
 
-QM_INLINE QMmat3 QM_PREFIX(translate)(const QMvec2& t)
+QM_INLINE mat3 translate(const vec2& t)
 {
-	QMmat3 result = QM_PREFIX(mat3_identity)();
+	mat3 result = mat3_identity();
 
 	result.m[2][0] = t.x;
 	result.m[2][1] = t.y;
@@ -1331,9 +1330,9 @@ QM_INLINE QMmat3 QM_PREFIX(translate)(const QMvec2& t)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(translate)(const QMvec3& t)
+QM_INLINE mat4 translate(const vec3& t)
 {
-	QMmat4 result = QM_PREFIX(mat4_identity)();
+	mat4 result = mat4_identity();
 
 	result.m[3][0] = t.x;
 	result.m[3][1] = t.y;
@@ -1344,9 +1343,9 @@ QM_INLINE QMmat4 QM_PREFIX(translate)(const QMvec3& t)
 
 //scaling:
 
-QM_INLINE QMmat3 QM_PREFIX(scale)(const QMvec2& s)
+QM_INLINE mat3 scale(const vec2& s)
 {
-	QMmat3 result = QM_PREFIX(mat3_identity)();
+	mat3 result = mat3_identity();
 
 	result.m[0][0] = s.x;
 	result.m[1][1] = s.y;
@@ -1354,9 +1353,9 @@ QM_INLINE QMmat3 QM_PREFIX(scale)(const QMvec2& s)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(scale)(const QMvec3& s)
+QM_INLINE mat4 scale(const vec3& s)
 {
-	QMmat4 result = QM_PREFIX(mat4_identity)();
+	mat4 result = mat4_identity();
 
 	result.m[0][0] = s.x;
 	result.m[1][1] = s.y;
@@ -1367,11 +1366,11 @@ QM_INLINE QMmat4 QM_PREFIX(scale)(const QMvec3& s)
 
 //rotation:
 
-QM_INLINE QMmat3 QM_PREFIX(rotate)(float angle)
+QM_INLINE mat3 rotate(float angle)
 {
-	QMmat3 result = QM_PREFIX(mat3_identity)();
+	mat3 result = mat3_identity();
 
-	float radians = QM_PREFIX(deg_to_rad)(angle);
+	float radians = deg_to_rad(angle);
 	float sine   = QM_SINF(radians);
 	float cosine = QM_COSF(radians);
 
@@ -1383,13 +1382,13 @@ QM_INLINE QMmat3 QM_PREFIX(rotate)(float angle)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(rotate)(const QMvec3& axis, float angle)
+QM_INLINE mat4 rotate(const vec3& axis, float angle)
 {
-	QMmat4 result = QM_PREFIX(mat4_identity)();
+	mat4 result = mat4_identity();
 
-	QMvec3 normalized = QM_PREFIX(normalize)(axis);
+	vec3 normalized = normalize(axis);
 
-	float radians = QM_PREFIX(deg_to_rad)(angle);
+	float radians = deg_to_rad(angle);
 	float sine    = QM_SINF(radians);
 	float cosine  = QM_COSF(radians);
 	float cosine2 = 1.0f - cosine;
@@ -1407,14 +1406,14 @@ QM_INLINE QMmat4 QM_PREFIX(rotate)(const QMvec3& axis, float angle)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(rotate)(const QMvec3& euler)
+QM_INLINE mat4 rotate(const vec3& euler)
 {
-	QMmat4 result = QM_PREFIX(mat4_identity)();
+	mat4 result = mat4_identity();
 
-	QMvec3 radians;
-	radians.x = QM_PREFIX(deg_to_rad)(euler.x);
-	radians.y = QM_PREFIX(deg_to_rad)(euler.y);
-	radians.z = QM_PREFIX(deg_to_rad)(euler.z);
+	vec3 radians;
+	radians.x = deg_to_rad(euler.x);
+	radians.y = deg_to_rad(euler.y);
+	radians.z = deg_to_rad(euler.z);
 
 	float sinX = QM_SINF(radians.x);
 	float cosX = QM_COSF(radians.x);
@@ -1438,9 +1437,9 @@ QM_INLINE QMmat4 QM_PREFIX(rotate)(const QMvec3& euler)
 
 //to mat3:
 
-QM_INLINE QMmat3 QM_PREFIX(top_left)(const QMmat4& m)
+QM_INLINE mat3 top_left(const mat4& m)
 {
-	QMmat3 result;
+	mat3 result;
 
 	result.m[0][0] = m.m[0][0];
 	result.m[0][1] = m.m[0][1];
@@ -1457,11 +1456,11 @@ QM_INLINE QMmat3 QM_PREFIX(top_left)(const QMmat4& m)
 
 //projection:
 
-QM_INLINE QMmat4 QM_PREFIX(perspective)(float fov, float aspect, float near, float far)
+QM_INLINE mat4 perspective(float fov, float aspect, float near, float far)
 {
-	QMmat4 result = {0};
+	mat4 result = {0};
 
-	float scale = QM_TANF(QM_PREFIX(deg_to_rad)(fov * 0.5f)) * near;
+	float scale = QM_TANF(deg_to_rad(fov * 0.5f)) * near;
 
 	float right = aspect * scale;
 	float left  = -right;
@@ -1477,9 +1476,9 @@ QM_INLINE QMmat4 QM_PREFIX(perspective)(float fov, float aspect, float near, flo
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(orthographic)(float left, float right, float bot, float top, float near, float far)
+QM_INLINE mat4 orthographic(float left, float right, float bot, float top, float near, float far)
 {
-	QMmat4 result = QM_PREFIX(mat4_identity)();
+	mat4 result = mat4_identity();
 
 	result.m[0][0] = 2.0f / (right - left);
 	result.m[1][1] = 2.0f / (top - bot);
@@ -1494,14 +1493,14 @@ QM_INLINE QMmat4 QM_PREFIX(orthographic)(float left, float right, float bot, flo
 
 //view matrix:
 
-QM_INLINE QMmat4 QM_PREFIX(look)(const QMvec3& pos, const QMvec3& dir, const QMvec3& up)
+QM_INLINE mat4 look(const vec3& pos, const vec3& dir, const vec3& up)
 {
-	QMmat4 result;
+	mat4 result;
 
-	QMvec3 r = QM_PREFIX(normalize)(QM_PREFIX(cross)(up, dir));
-	QMvec3 u = QM_PREFIX(cross)(dir, r);
+	vec3 r = normalize(cross(up, dir));
+	vec3 u = cross(dir, r);
 
-	QMmat4 RUD = QM_PREFIX(mat4_identity)();
+	mat4 RUD = mat4_identity();
 	RUD.m[0][0] = r.x;
 	RUD.m[1][0] = r.y;
 	RUD.m[2][0] = r.z;
@@ -1512,18 +1511,18 @@ QM_INLINE QMmat4 QM_PREFIX(look)(const QMvec3& pos, const QMvec3& dir, const QMv
 	RUD.m[1][2] = dir.y;
 	RUD.m[2][2] = dir.z;
 
-	QMvec3 oppPos = {-pos.x, -pos.y, -pos.z};	
-	result = RUD * QM_PREFIX(translate)(oppPos);
+	vec3 oppPos = {-pos.x, -pos.y, -pos.z};	
+	result = RUD * translate(oppPos);
 
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(lookat)(const QMvec3& pos, const QMvec3& target, const QMvec3& up)
+QM_INLINE mat4 lookat(const vec3& pos, const vec3& target, const vec3& up)
 {
-	QMmat4 result;
+	mat4 result;
 
-	QMvec3 dir = QM_PREFIX(normalize)(pos - target);
-	result = QM_PREFIX(look)(pos, dir, up);
+	vec3 dir = normalize(pos - target);
+	result = look(pos, dir, up);
 
 	return result;
 }
@@ -1533,13 +1532,13 @@ QM_INLINE QMmat4 QM_PREFIX(lookat)(const QMvec3& pos, const QMvec3& target, cons
 
 #if QM_INCLUDE_IOSTREAM
 
-std::ostream& operator<<(std::ostream& os, const QMquaternion& q)
+std::ostream& operator<<(std::ostream& os, const quaternion& q)
 {
 	os << q.x << ", " << q.y << ", " << q.z << ", " << q.w;
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, QMquaternion& q)
+std::istream& operator>>(std::istream& is, quaternion& q)
 {
 	is >> q.x >> q.y >> q.z >> q.w;
 	return is;
@@ -1547,9 +1546,9 @@ std::istream& operator>>(std::istream& is, QMquaternion& q)
 
 #endif
 
-QM_INLINE QMquaternion QM_PREFIX(quaternion_identity)()
+QM_INLINE quaternion quaternion_identity()
 {
-	QMquaternion result;
+	quaternion result;
 
 	result.x = 0.0f;
 	result.y = 0.0f;
@@ -1559,9 +1558,9 @@ QM_INLINE QMquaternion QM_PREFIX(quaternion_identity)()
 	return result;
 }
 
-QM_INLINE QMquaternion operator+(const QMquaternion& q1, const QMquaternion& q2)
+QM_INLINE quaternion operator+(const quaternion& q1, const quaternion& q2)
 {
-	QMquaternion result;
+	quaternion result;
 
 	#if QM_USE_SSE
 
@@ -1579,9 +1578,9 @@ QM_INLINE QMquaternion operator+(const QMquaternion& q1, const QMquaternion& q2)
 	return result;
 }
 
-QM_INLINE QMquaternion operator-(const QMquaternion& q1, const QMquaternion& q2)
+QM_INLINE quaternion operator-(const quaternion& q1, const quaternion& q2)
 {
-	QMquaternion result;
+	quaternion result;
 
 	#if QM_USE_SSE
 
@@ -1599,9 +1598,9 @@ QM_INLINE QMquaternion operator-(const QMquaternion& q1, const QMquaternion& q2)
 	return result;
 }
 
-QM_INLINE QMquaternion operator*(const QMquaternion& q1, const QMquaternion& q2)
+QM_INLINE quaternion operator*(const quaternion& q1, const quaternion& q2)
 {
-	QMquaternion result;
+	quaternion result;
 
 	#if QM_USE_SSE
 
@@ -1636,9 +1635,9 @@ QM_INLINE QMquaternion operator*(const QMquaternion& q1, const QMquaternion& q2)
 	return result;
 }
 
-QM_INLINE QMquaternion operator*(const QMquaternion& q, float s)
+QM_INLINE quaternion operator*(const quaternion& q, float s)
 {
-	QMquaternion result;
+	quaternion result;
 
 	#if QM_USE_SSE
 
@@ -1657,14 +1656,14 @@ QM_INLINE QMquaternion operator*(const QMquaternion& q, float s)
 	return result;
 }
 
-QM_INLINE QMquaternion operator*(float s, const QMquaternion& q)
+QM_INLINE quaternion operator*(float s, const quaternion& q)
 {
 	return q * s;
 }
 
-QM_INLINE QMquaternion operator/(const QMquaternion& q, float s)
+QM_INLINE quaternion operator/(const quaternion& q, float s)
 {
-	QMquaternion result;
+	quaternion result;
 
 	#if QM_USE_SSE
 
@@ -1683,9 +1682,9 @@ QM_INLINE QMquaternion operator/(const QMquaternion& q, float s)
 	return result;
 }
 
-QM_INLINE QMquaternion operator/(float s, const QMquaternion& q)
+QM_INLINE quaternion operator/(float s, const quaternion& q)
 {
-	QMquaternion result;
+	quaternion result;
 
 	#if QM_USE_SSE
 
@@ -1704,7 +1703,7 @@ QM_INLINE QMquaternion operator/(float s, const QMquaternion& q)
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(dot)(const QMquaternion& q1, const QMquaternion& q2)
+QM_INLINE float dot(const quaternion& q1, const quaternion& q2)
 {
 	float result;
 
@@ -1724,29 +1723,29 @@ QM_INLINE float QM_PREFIX(dot)(const QMquaternion& q1, const QMquaternion& q2)
 	return result;
 }
 
-QM_INLINE float QM_PREFIX(length)(const QMquaternion& q)
+QM_INLINE float length(const quaternion& q)
 {
 	float result;
 
-	result = QM_SQRTF(QM_PREFIX(dot)(q, q));
+	result = QM_SQRTF(dot(q, q));
 
 	return result;
 }
 
-QM_INLINE QMquaternion QM_PREFIX(normalize)(const QMquaternion& q)
+QM_INLINE quaternion normalize(const quaternion& q)
 {
-	QMquaternion result;
+	quaternion result;
 
-	float len = QM_PREFIX(length)(q);
+	float len = length(q);
 	if(len != 0.0f)
 		result = q / len;
 
 	return result;
 }
 
-QM_INLINE QMquaternion QM_PREFIX(conjugate)(const QMquaternion& q)
+QM_INLINE quaternion conjugate(const quaternion& q)
 {
-	QMquaternion result;
+	quaternion result;
 
 	result.x = -q.x;
 	result.y = -q.y;
@@ -1756,9 +1755,9 @@ QM_INLINE QMquaternion QM_PREFIX(conjugate)(const QMquaternion& q)
 	return result;
 }
 
-QM_INLINE QMquaternion QM_PREFIX(inverse)(const QMquaternion& q)
+QM_INLINE quaternion inverse(const quaternion& q)
 {
-	QMquaternion result;
+	quaternion result;
 
 	result.x = -q.x;
 	result.y = -q.y;
@@ -1767,7 +1766,7 @@ QM_INLINE QMquaternion QM_PREFIX(inverse)(const QMquaternion& q)
 
 	#if QM_USE_SSE
 
-	__m128 scale = _mm_set1_ps(QM_PREFIX(dot)(q, q));
+	__m128 scale = _mm_set1_ps(dot(q, q));
 	_mm_div_ps(result.packed, scale);
 
 	#else
@@ -1784,19 +1783,19 @@ QM_INLINE QMquaternion QM_PREFIX(inverse)(const QMquaternion& q)
 	return result;
 }
 
-QM_INLINE QMquaternion QM_PREFIX(slerp)(const QMquaternion& q1, const QMquaternion& q2, float a)
+QM_INLINE quaternion slerp(const quaternion& q1, const quaternion& q2, float a)
 {
-	QMquaternion result;
+	quaternion result;
 
-	float cosine = QM_PREFIX(dot)(q1, q2);
+	float cosine = dot(q1, q2);
 	float angle = QM_ACOSF(cosine);
 
 	float sine1 = QM_SINF((1.0f - a) * angle);
 	float sine2 = QM_SINF(a * angle);
 	float invSine = 1.0f / QM_SINF(angle);
 
-	QMquaternion q1scaled = q1 * sine1;
-	QMquaternion q2scaled = q2 * sine2;
+	quaternion q1scaled = q1 * sine1;
+	quaternion q2scaled = q2 * sine2;
 
 	result = q1scaled + q2scaled;
 	result = result * invSine;
@@ -1804,9 +1803,9 @@ QM_INLINE QMquaternion QM_PREFIX(slerp)(const QMquaternion& q1, const QMquaterni
 	return result;
 }
 
-QM_INLINE QMbool operator==(const QMquaternion& q1, const QMquaternion& q2)
+QM_INLINE bool operator==(const quaternion& q1, const quaternion& q2)
 {
-	QMbool result;
+	bool result;
 
 	//TODO: there are SIMD instructions for floating point equality, find a way to get a single bool from them
 	result = (q1.x == q2.x) && (q1.y == q2.y) && (q1.z == q2.z) && (q1.w == q2.w); 
@@ -1814,12 +1813,12 @@ QM_INLINE QMbool operator==(const QMquaternion& q1, const QMquaternion& q2)
 	return result;	
 }
 
-QM_INLINE QMquaternion QM_PREFIX(quaternion_from_axis_angle)(const QMvec3& axis, float angle)
+QM_INLINE quaternion quaternion_from_axis_angle(const vec3& axis, float angle)
 {
-	QMquaternion result;
+	quaternion result;
 
-	float radians = QM_PREFIX(deg_to_rad)(angle * 0.5f);
-	QMvec3 normalized = QM_PREFIX(normalize)(axis);
+	float radians = deg_to_rad(angle * 0.5f);
+	vec3 normalized = normalize(axis);
 	float sine = QM_SINF(radians);
 
 	result.x = normalized.x * sine;
@@ -1830,14 +1829,14 @@ QM_INLINE QMquaternion QM_PREFIX(quaternion_from_axis_angle)(const QMvec3& axis,
 	return result;
 }
 
-QM_INLINE QMquaternion QM_PREFIX(quaternion_from_euler)(const QMvec3& angles)
+QM_INLINE quaternion quaternion_from_euler(const vec3& angles)
 {
-	QMquaternion result;
+	quaternion result;
 
-	QMvec3 radians;
-	radians.x = QM_PREFIX(deg_to_rad)(angles.x * 0.5f);
-	radians.y = QM_PREFIX(deg_to_rad)(angles.y * 0.5f);
-	radians.z = QM_PREFIX(deg_to_rad)(angles.z * 0.5f);
+	vec3 radians;
+	radians.x = deg_to_rad(angles.x * 0.5f);
+	radians.y = deg_to_rad(angles.y * 0.5f);
+	radians.z = deg_to_rad(angles.z * 0.5f);
 
 	float sinx = QM_SINF(radians.x);
 	float cosx = QM_COSF(radians.x);
@@ -1872,9 +1871,9 @@ QM_INLINE QMquaternion QM_PREFIX(quaternion_from_euler)(const QMvec3& angles)
 	return result;
 }
 
-QM_INLINE QMmat4 QM_PREFIX(quaternion_to_mat4)(const QMquaternion& q)
+QM_INLINE mat4 quaternion_to_mat4(const quaternion& q)
 {
-	QMmat4 result = QM_PREFIX(mat4_identity)();
+	mat4 result = mat4_identity();
 
 	float x2  = q.x + q.x;
     float y2  = q.y + q.y;
@@ -1901,5 +1900,7 @@ QM_INLINE QMmat4 QM_PREFIX(quaternion_to_mat4)(const QMquaternion& q)
 
 	return result;
 }
+
+}; //namespace qm
 
 #endif //QM_MATH_H
