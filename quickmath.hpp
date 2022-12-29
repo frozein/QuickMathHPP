@@ -11,13 +11,13 @@
  * all the types and functions provided by this library are under the the "qm" namespace
  * 
  * if you wish not to use SSE3 intrinsics (if they are not supported for example),
- * change the macro on line 95 to "#define QM_USE_SSE 0"
+ * change the macro on line 101 to "#define QM_USE_SSE 0"
  * 
- * if you wish not to include <iostream> in your project, simply change the macro on line 106
+ * if you wish not to include <iostream> in your project, simply change the macro on line 109
  * to "#define QM_INCLUDE_IOSTREAM 0" and any iostream related functions will not be compiled
  * 
  * to disable the need to link with the C runtime library, change the macros beginning
- * on line 115 and the #include on line 113 to the appropirate functions/files
+ * on line 116 and the #include on line 114 to the appropirate functions/files
  * 
  * ------------------------------------------------------------------------
  * 
@@ -69,11 +69,13 @@
  * vecn + vecn              -> vecn
  * vecn - vecn              -> vecn
  * vecn * vecn              -> vecn
+ * vecn / vecn              -> vecn
  * vecn * float             -> vecn
  * float * vecn             -> vecn
  * vecn / float             -> vecn
  * float / vecn             -> vecn
  * vecn == vecn             -> bool
+ * vecn != vecn             -> bool
  * 
  * matn + matn              -> matn
  * matn - matn              -> matn
@@ -88,6 +90,7 @@
  * quaternion / float       -> quaternion
  * float / quaternion       -> quaternion
  * quaternion == quaternion -> bool
+ * quaternion != quaternion -> bool
  */
 
 #ifndef QM_MATH_H
@@ -131,10 +134,10 @@ union vec2
 	struct{ float x, y; };
 	struct{ float w, h; };
 
-	vec2() = default;
+	vec2() {};
 	vec2(float _x, float _y) { x = _x, y = _y; };
 
-	float& operator[](size_t i) { return v[i]; };
+	inline float& operator[](size_t i) { return v[i]; };
 };
 
 //a 3-dimensional vector of floats
@@ -145,12 +148,12 @@ union vec3
 	struct{ float w, h, d; };
 	struct{ float r, g, b; };
 
-	vec3() = default;
+	vec3() {};
 	vec3(float _x, float _y, float _z) { x = _x, y = _y, z = _z; };
 	vec3(vec2 _xy, float _z) { x = _xy.x, y = _xy.y, z = _z; };
 	vec3(float _x, vec3 _yz) { x = _x, y = _yz.x, z = _yz.y; };
 
-	float& operator[](size_t i) { return v[i]; };
+	inline float& operator[](size_t i) { return v[i]; };
 };
 
 //a 4-dimensional vector of floats
@@ -166,13 +169,13 @@ union vec4
 
 	#endif
 
-	vec4() = default;
+	vec4() {};
 	vec4(float _x, float _y, float _z, float _w) { x = _x, y = _y, z = _z, w = _w; };
 	vec4(vec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
 	vec4(float _x, vec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
 	vec4(vec2 _xy, vec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
 
-	float& operator[](size_t i) { return v[i]; };
+	inline float& operator[](size_t i) { return v[i]; };
 };
 
 //-----------------------------//
@@ -183,9 +186,9 @@ union mat3
 	float m[3][3] = {};
 	vec3 v[3];
 
-	mat3() = default;
+	mat3() {};
 
-	vec3& operator[](size_t i) { return v[i]; };
+	inline vec3& operator[](size_t i) { return v[i]; };
 };
 
 union mat4
@@ -199,9 +202,9 @@ union mat4
 
 	#endif
 
-	mat4() = default;
+	mat4() {};
 
-	vec4& operator[](size_t i) { return v[i]; };
+	inline vec4& operator[](size_t i) { return v[i]; };
 };
 
 //-----------------------------//
@@ -217,13 +220,13 @@ union quaternion
 
 	#endif
 
-	quaternion() = default;
+	quaternion() {};
 	quaternion(float _x, float _y, float _z, float _w) { x = _x, y = _y, z = _z, w = _w; };
 	quaternion(vec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
 	quaternion(float _x, vec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
 	quaternion(vec2 _xy, vec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
 
-	float operator[](size_t i) { return q[i]; };
+	inline float operator[](size_t i) { return q[i]; };
 };
 
 //----------------------------------------------------------------------//
@@ -801,6 +804,33 @@ inline bool operator==(const vec4& v1, const vec4& v2)
 	return result;	
 }
 
+inline bool operator!=(const vec2& v1, const vec2& v2)
+{
+	bool result;
+
+	result = (v1.x != v2.x) || (v1.y != v2.y);
+
+	return result;
+}
+
+inline bool operator!=(const vec3& v1, const vec3& v2)
+{
+	bool result;
+
+	result = (v1.x != v2.x) || (v1.y != v2.y) || (v1.z != v2.z);
+
+	return result;
+}
+
+inline bool operator!=(const vec4& v1, const vec4& v2)
+{
+	bool result;
+
+	result = (v1.x != v2.x) || (v1.y != v2.y) || (v1.z != v2.z) || (v1.w != v2.w);
+
+	return result;
+}
+
 //min:
 
 inline vec2 min(const vec2& v1, const vec2& v2)
@@ -926,23 +956,23 @@ std::istream& operator>>(std::istream& is, mat4& m)
 
 inline mat3 mat3_identity()
 {
-	mat3 result = {
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f
-	};
+	mat3 result;
+
+	result.m[0][0] = 1.0f;
+	result.m[1][1] = 1.0f;
+	result.m[2][2] = 1.0f;
 
 	return result;
 }
 
 inline mat4 mat4_identity()
 {
-	mat4 result = {
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f
-	};
+	mat4 result;
+
+	result.m[0][0] = 1.0f;
+	result.m[1][1] = 1.0f;
+	result.m[2][2] = 1.0f;
+	result.m[3][3] = 1.0f;
 
 	return result;
 }
@@ -1456,7 +1486,7 @@ inline mat3 top_left(const mat4& m)
 
 inline mat4 perspective(float fov, float aspect, float near, float far)
 {
-	mat4 result = {0};
+	mat4 result;
 
 	float scale = QM_TANF(deg_to_rad(fov * 0.5f)) * near;
 
@@ -1809,6 +1839,15 @@ inline bool operator==(const quaternion& q1, const quaternion& q2)
 	result = (q1.x == q2.x) && (q1.y == q2.y) && (q1.z == q2.z) && (q1.w == q2.w); 
 
 	return result;	
+}
+
+inline bool operator!=(const quaternion& q1, const quaternion& q2)
+{
+	bool result;
+
+	result = (q1.x != q2.x) || (q1.y != q2.y) || (q1.z != q2.z) || (q1.w != q2.w); 
+
+	return result;
 }
 
 inline quaternion quaternion_from_axis_angle(const vec3& axis, float angle)
