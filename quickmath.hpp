@@ -269,19 +269,19 @@ inline __m128 mat4_mult_column_sse(__m128 c1, mat4 m2)
 
 //output:
 
-std::ostream& operator<<(std::ostream& os, const vec2& v)
+inline std::ostream& operator<<(std::ostream& os, const vec2& v)
 {
 	os << v.x << ", " << v.y;
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const vec3& v)
+inline std::ostream& operator<<(std::ostream& os, const vec3& v)
 {
 	os << v.x << ", " << v.y << ", " << v.z;
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const vec4& v)
+inline std::ostream& operator<<(std::ostream& os, const vec4& v)
 {
 	os << v.x << ", " << v.y << ", " << v.z << ", " << v.w;
 	return os;
@@ -289,19 +289,19 @@ std::ostream& operator<<(std::ostream& os, const vec4& v)
 
 //input:
 
-std::istream& operator>>(std::istream& is, vec2& v)
+inline std::istream& operator>>(std::istream& is, vec2& v)
 {
 	is >> v.x >> v.y;
 	return is;
 }
 
-std::istream& operator>>(std::istream& is, vec3& v)
+inline std::istream& operator>>(std::istream& is, vec3& v)
 {
 	is >> v.x >> v.y >> v.z;
 	return is;
 }
 
-std::istream& operator>>(std::istream& is, vec4& v)
+inline std::istream& operator>>(std::istream& is, vec4& v)
 {
 	is >> v.x >> v.y >> v.z >> v.w;
 	return is;
@@ -924,13 +924,13 @@ inline vec4 max(const vec4& v1, const vec4& v2)
 
 //output:
 
-std::ostream& operator<<(std::ostream& os, const mat3& m)
+inline std::ostream& operator<<(std::ostream& os, const mat3& m)
 {
 	os << m.v[0] << std::endl << m.v[1] << std::endl << m.v[2];
 	return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const mat4& m)
+inline std::ostream& operator<<(std::ostream& os, const mat4& m)
 {
 	os << m.v[0] << std::endl << m.v[1] << std::endl << m.v[2] << std::endl << m.v[3];
 	return os;
@@ -938,13 +938,13 @@ std::ostream& operator<<(std::ostream& os, const mat4& m)
 
 //input:
 
-std::istream& operator>>(std::istream& is, mat3& m)
+inline std::istream& operator>>(std::istream& is, mat3& m)
 {
 	is >> m.v[0] >> m.v[1] >> m.v[2];
 	return is;
 }
 
-std::istream& operator>>(std::istream& is, mat4& m)
+inline std::istream& operator>>(std::istream& is, mat4& m)
 {
 	is >> m.v[0] >> m.v[1] >> m.v[2] >> m.v[3];
 	return is;
@@ -1560,13 +1560,13 @@ inline mat4 lookat(const vec3& pos, const vec3& target, const vec3& up)
 
 #if QM_INCLUDE_IOSTREAM
 
-std::ostream& operator<<(std::ostream& os, const quaternion& q)
+inline std::ostream& operator<<(std::ostream& os, const quaternion& q)
 {
 	os << q.x << ", " << q.y << ", " << q.z << ", " << q.w;
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, quaternion& q)
+inline std::istream& operator>>(std::istream& is, quaternion& q)
 {
 	is >> q.x >> q.y >> q.z >> q.w;
 	return is;
