@@ -136,6 +136,7 @@ union vec2
 
 	vec2() {};
 	vec2(float _x, float _y) { x = _x, y = _y; };
+	vec2(float _val) { x = _val, y = _val; };
 
 	inline float& operator[](size_t i) { return v[i]; };
 };
@@ -152,8 +153,13 @@ union vec3
 	vec3(float _x, float _y, float _z) { x = _x, y = _y, z = _z; };
 	vec3(vec2 _xy, float _z) { x = _xy.x, y = _xy.y, z = _z; };
 	vec3(float _x, vec3 _yz) { x = _x, y = _yz.x, z = _yz.y; };
+	vec3(float _val) { x = _val, y = _val, z = _val; };
 
 	inline float& operator[](size_t i) { return v[i]; };
+
+	vec2 xy() const { return vec2(x, y); }
+	vec2 xz() const { return vec2(x, z); }
+	vec2 yz() const { return vec2(y, z); }
 };
 
 //a 4-dimensional vector of floats
@@ -174,8 +180,21 @@ union vec4
 	vec4(vec3 _xyz, float _w) { x = _xyz.x, y = _xyz.y, z = _xyz.z, w = _w; };
 	vec4(float _x, vec3 _yzw) { x = _x, y = _yzw.x, z = _yzw.y, w = _yzw.z; };
 	vec4(vec2 _xy, vec2 _zw) { x = _xy.x, y = _xy.y, z = _zw.x, w = _zw.y; };
+	vec4(float _val) { x = _val, y = _val, z = _val, w = _val; };
 
 	inline float& operator[](size_t i) { return v[i]; };
+
+	vec3 xyz() const { return vec3(x, y, z); }
+	vec3 xyw() const { return vec3(x, y, w); }
+	vec3 xzw() const { return vec3(x, z, w); }
+	vec3 yzw() const { return vec3(y, z, w); }
+
+	vec2 xy() const { return vec2(x, y); }
+	vec2 xz() const { return vec2(x, z); }
+	vec2 yz() const { return vec2(y, z); }
+	vec2 xw() const { return vec2(x, w); }
+	vec2 yw() const { return vec2(y, w); }
+	vec2 zw() const { return vec2(z, w); }
 };
 
 //-----------------------------//
