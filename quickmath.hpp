@@ -1554,9 +1554,9 @@ inline mat4 look(const vec3& pos, const vec3& dir, const vec3& up)
 	RUD.m[0][1] = u.x;
 	RUD.m[1][1] = u.y;
 	RUD.m[2][1] = u.z;
-	RUD.m[0][2] = dir.x;
-	RUD.m[1][2] = dir.y;
-	RUD.m[2][2] = dir.z;
+	RUD.m[0][2] = -dir.x;
+	RUD.m[1][2] = -dir.y;
+	RUD.m[2][2] = -dir.z;
 
 	vec3 oppPos = {-pos.x, -pos.y, -pos.z};	
 	result = RUD * translate(oppPos);
